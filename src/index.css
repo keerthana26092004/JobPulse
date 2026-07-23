@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* cool paper background, ink text — deliberately not the cream+terracotta default */
+  --color-bg: #f4f5f8;
+  --color-surface: #ffffff;
+  --color-surface-raised: #ffffff;
+  --color-border: #dfe2e8;
+  --color-signal: #d68a1f;
+  --color-signal-soft: #fbeed9;
+  --color-signal-dim: #b9760f;
+  --color-noise: #9aa2b1;
+  --color-noise-dim: #c4c9d2;
+  --color-text: #1b2430;
+  --color-text-dim: #67707f;
+  --color-success: #1f9d63;
+  --color-success-soft: #e2f6ec;
+  --color-danger: #d6483f;
+  --color-danger-soft: #fbe8e6;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+  }
+}
+
+@keyframes pulse-line {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+
+.pulse-dot {
+  animation: pulse-line 2s ease-in-out infinite;
+}
