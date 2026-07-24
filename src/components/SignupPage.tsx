@@ -41,12 +41,12 @@ export function SignupPage({
 
   return (
     <AuthShell>
-      <h1 className="font-[var(--font-display)] text-2xl font-semibold text-[var(--color-text)]">
-        Set up Signal
+      <h1 className="font-[var(--font-display)] text-3xl font-bold text-[var(--color-text)]">
+        Sign Up
       </h1>
-      <p className="mt-1 text-sm text-[var(--color-text-dim)]">
+      {/* <p className="mt-1 text-base text-[var(--color-text-dim)]">
         Tell it what's worth interrupting you for.
-      </p>
+      </p> */}
 
       <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
         <Field label="Username">
@@ -55,7 +55,7 @@ export function SignupPage({
             onChange={(e) => setUsername(e.target.value)}
             required
             className={inputClass}
-            placeholder="How Signal should greet you"
+            placeholder="Enter user Name"
           />
         </Field>
         <Field label="Email">
@@ -65,7 +65,7 @@ export function SignupPage({
             onChange={(e) => setEmail(e.target.value)}
             required
             className={inputClass}
-            placeholder="you@example.com"
+            placeholder="Enter email address"
           />
         </Field>
         <Field label="Password">
@@ -74,13 +74,13 @@ export function SignupPage({
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            minLength={4}
+            minLength={8}
             className={inputClass}
-            placeholder="At least 4 characters"
+            placeholder="At least 8 characters"
           />
         </Field>
 
-        <div>
+        {/* <div>
           <p className="text-sm font-medium text-[var(--color-text-dim)]">What do you want to track?</p>
           <div className="mt-2 grid gap-2">
             {TRACKABLE_CATEGORIES.map((c) => (
@@ -98,13 +98,13 @@ export function SignupPage({
               </label>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {error && <p className="text-sm text-[var(--color-danger)]">{error}</p>}
 
         <button
           type="submit"
-          className="mt-2 rounded-lg bg-[var(--color-signal)] px-4 py-2.5 font-medium text-white transition hover:brightness-95"
+          className="mt-2 rounded-xl bg-[var(--color-signal)] px-5 py-3 font-medium text-white shadow-md transition hover:brightness-95"
         >
           Create account
         </button>

@@ -19,12 +19,12 @@ export function LoginPage({
 
   return (
     <AuthShell>
-      <h1 className="font-[var(--font-display)] text-2xl font-semibold text-[var(--color-text)]">
-        Welcome back
+      <h1 className="font-[var(--font-display)] text-3xl font-bold text-[var(--color-text)]">
+        Welcome back!
       </h1>
-      <p className="mt-1 text-sm text-[var(--color-text-dim)]">
+      {/* <p className="mt-1 text-base text-[var(--color-text-dim)]">
         Pick up where the signal left off.
-      </p>
+      </p> */}
 
       <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
         <Field label="Email">
@@ -34,7 +34,7 @@ export function LoginPage({
             onChange={(e) => setEmail(e.target.value)}
             required
             className={inputClass}
-            placeholder="you@example.com"
+            placeholder="Enter email address"
           />
         </Field>
         <Field label="Password">
@@ -44,7 +44,7 @@ export function LoginPage({
             onChange={(e) => setPassword(e.target.value)}
             required
             className={inputClass}
-            placeholder="••••••••"
+            placeholder="Enter Password"
           />
         </Field>
 
@@ -52,7 +52,7 @@ export function LoginPage({
 
         <button
           type="submit"
-          className="mt-2 rounded-lg bg-[var(--color-signal)] px-4 py-2.5 font-medium text-white transition hover:brightness-95"
+          className="mt-2 rounded-xl bg-[var(--color-signal)] px-5 py-3 font-medium text-white shadow-md transition hover:brightness-95"
         >
           Log in
         </button>
@@ -73,18 +73,25 @@ export function LoginPage({
 
 export function AuthShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[var(--color-bg)] px-4">
-      <div className="w-full max-w-sm">
-        <div className="mb-6 flex items-center gap-2.5">
-          <div className="relative flex h-7 w-7 items-center justify-center">
-            <span className="pulse-dot absolute h-2 w-2 rounded-full bg-[var(--color-signal)]" />
-            <span className="h-2 w-2 rounded-full bg-[var(--color-signal)] opacity-30" />
+    <div className="flex min-h-screen items-center justify-center px-4">
+      <div className="grid w-full max-w-4xl grid-cols-1 gap-6 rounded-3xl md:grid-cols-2">
+        {/* <div className="hidden flex-col items-start justify-center gap-4 rounded-3xl p-8 auth-illustration text-left md:flex">
+          <div className="relative flex h-12 w-12 items-center justify-center">
+            <span className="pulse-dot absolute h-3 w-3 rounded-full bg-[var(--color-signal)]" />
+            <span className="h-3 w-3 rounded-full bg-[var(--color-signal)] opacity-30" />
           </div>
-          <span className="font-[var(--font-display)] text-lg font-semibold text-[var(--color-text)]">
-            Signal
-          </span>
-        </div>
-        <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-7 shadow-sm">
+          { <h2 className="text-2xl font-semibold text-[var(--color-text)]">Signal</h2>}
+          { <p className="text-sm text-[var(--color-text-dim)]">Focus on what matters — we handle the noise.</p> }
+        </div> */}
+        <div className="hidden overflow-hidden rounded-3xl md:block">
+  <img
+    src="/photo.jpg"
+    alt=""
+    className="h-full w-full object-cover"
+  />
+</div>
+
+        <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-8 shadow-md">
           {children}
         </div>
       </div>
@@ -93,7 +100,7 @@ export function AuthShell({ children }: { children: React.ReactNode }) {
 }
 
 export const inputClass =
-  "w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] px-3 py-2 text-sm text-[var(--color-text)] outline-none focus:border-[var(--color-signal)] placeholder:text-[var(--color-text-dim)]/60";
+  "w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] px-3 py-3 text-base text-[var(--color-text)] outline-none focus:border-[var(--color-signal)] placeholder:text-[var(--color-text-dim)]/60";
 
 export function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
