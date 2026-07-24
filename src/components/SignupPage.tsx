@@ -18,16 +18,10 @@ export function SignupPage({
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [categories, setCategories] = useState<EntryType[]>(
+  const [categories] = useState<EntryType[]>(
     TRACKABLE_CATEGORIES.map((c) => c.key),
   );
   const [error, setError] = useState("");
-
-  function toggle(key: EntryType) {
-    setCategories((prev) =>
-      prev.includes(key) ? prev.filter((c) => c !== key) : [...prev, key],
-    );
-  }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
