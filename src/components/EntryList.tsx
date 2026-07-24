@@ -37,10 +37,16 @@ export function EntryList({
 
   return (
     <section>
-      <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-        <h2 className="font-[var(--font-display)] text-sm font-semibold uppercase tracking-wide text-[var(--color-text-dim)]">
-          Everything you're tracking
-        </h2>
+<div className="mb-4 flex flex-wrap items-start justify-between gap-3">          <div>
+    <h2 className="font-[var(--font-display)] text-sm font-semibold uppercase tracking-wide text-[var(--color-text-dim)]">
+      Everything you're tracking
+    </h2>
+    <p className="mt-1 max-w-md text-sm text-[var(--color-text-dim)]">
+      A complete, filterable record of every application and update you're tracking
+    </p>
+  </div>
+        
+        
         <div className="flex gap-2">
           <select
             value={sourceFilter}

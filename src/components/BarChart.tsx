@@ -1,5 +1,3 @@
-import React from "react";
-
 export function BarChart({
   data,
   height = 140,
@@ -11,20 +9,18 @@ export function BarChart({
 
   return (
     <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-4">
-      <div className="mb-2 text-sm font-medium text-[var(--color-text)]">Tracked items (pending)</div>
-      <div style={{ height }} className="flex flex-col gap-3">
+      <div className="mb-3 text-sm font-medium text-[var(--color-text)]">Tracked items (pending)</div>
+      <div style={{ height }} className="flex justify-between gap-3">
         {data.map((d) => (
-          <div key={d.label} className="flex items-center gap-3">
-            <div className="w-28 text-xs text-[var(--color-text-dim)]">{d.label}</div>
-            <div className="flex-1">
-              <div className="h-3 rounded bg-[var(--color-noise-dim)]">
-                <div
-                  className="h-3 rounded bg-[var(--color-signal)]"
-                  style={{ width: `${(d.value / max) * 100}%` }}
-                />
-              </div>
+          <div key={d.label} className="flex flex-1 flex-col items-center gap-2">
+            <div className="text-xs font-medium text-[var(--color-text)]">{d.value}</div>
+            <div className="flex w-full flex-1 items-end justify-center rounded bg-[var(--color-noise-dim)]">
+              <div
+                className="w-full rounded bg-[var(--color-signal)] transition-all"
+                style={{ height: `${(d.value / max) * 100}%` }}
+              />
             </div>
-            <div className="w-8 text-right text-xs font-medium text-[var(--color-text)]">{d.value}</div>
+            <div className="text-xs text-[var(--color-text-dim)]">{d.label}</div>
           </div>
         ))}
       </div>

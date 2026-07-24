@@ -50,9 +50,14 @@ export function Dashboard({
 
   return (
     <section>
+      
       <h2 className="mb-3 font-[var(--font-display)] text-sm font-semibold uppercase tracking-wide text-[var(--color-text-dim)]">
         Don't miss this
       </h2>
+      <div className="flex items-center justify-between gap-4">
+            <p className="max-w-md text-sm text-[var(--color-text-dim)] md-2">
+Time-sensitive items that need your attention in the next few days            </p>
+            </div>
       <div className="mb-4">
         <BarChart data={counts} />
       </div>
