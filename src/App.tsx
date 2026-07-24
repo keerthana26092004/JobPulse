@@ -17,7 +17,7 @@ import { TRACKABLE_CATEGORIES } from "./types";
 
 function App() {
   const { currentUser, signup, login, logout } = useAuth();
-  const { entries, addEntry, updateEntry, deleteEntry, seedDemoData } = useEntries();
+  const { entries, addEntry, updateEntry, deleteEntry } = useEntries();
   const [view, setView] = useState<ViewKey>("overview");
   const [authView, setAuthView] = useState<"login" | "signup">("signup");
 
@@ -51,16 +51,7 @@ function App() {
 
         <div className="flex w-full flex-col gap-8">
           <div className="flex items-center justify-between gap-4">
-            <div className="flex shrink-0 gap-2">
-              {entries.length === 0 && (
-                <button
-                  onClick={seedDemoData}
-                  className="rounded-lg border border-[var(--color-border)] px-3 py-2 text-xs font-medium text-[var(--color-text-dim)] transition hover:border-[var(--color-signal-dim)] hover:text-[var(--color-text)]"
-                >
-                  Load example
-                </button>
-              )}
-            </div>
+            <div />
           </div>
 
           {view === "health" && <SignalHealth entries={visibleEntries} />}

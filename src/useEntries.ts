@@ -1,13 +1,49 @@
 import { useCallback, useEffect, useState } from "react";
 import type { Entry } from "./types";
 
-const STORAGE_KEY = "signal:entries";
+const GLOBAL_STORAGE_KEY = "signal:entries";
+const SESSION_KEY = "signal:session";
+
+function getUserKey(): string | null {
+  try {
+    const raw = localStorage.getItem(SESSION_KEY);
+    if (!raw) return null;
+    const u = JSON.parse(raw) as { email?: string };
+    if (!u?.email) return null;
+    return `${GLOBAL_STORAGE_KEY}:${u.email}`;
+  } catch {
+    return null;
+  }
+}
 
 function load(): Entry[] {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return [];
-    return JSON.parse(raw) as Entry[];
+    const userKey = getUserKey();
+    const global = localStorage.getItem(GLOBAL_STORAGE_KEY);
+
+    if (userKey) {
+      const per = localStorage.getItem(userKey);
+      if (per) {
+        if (global) localStorage.removeItem(GLOBAL_STORAGE_KEY);
+        return JSON.parse(per) as Entry[];
+      }
+
+      if (global) {
+        try {
+          const parsed = JSON.parse(global) as Entry[];
+          localStorage.setItem(userKey, JSON.stringify(parsed));
+          localStorage.removeItem(GLOBAL_STORAGE_KEY);
+          return parsed;
+        } catch {
+          localStorage.removeItem(GLOBAL_STORAGE_KEY);
+        }
+      }
+
+      return [];
+    }
+
+    if (!global) return [];
+    return JSON.parse(global) as Entry[];
   } catch {
     return [];
   }
@@ -15,7 +51,12 @@ function load(): Entry[] {
 
 function save(entries: Entry[]) {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+    const userKey = getUserKey();
+    if (userKey) {
+      localStorage.setItem(userKey, JSON.stringify(entries));
+    } else {
+      localStorage.setItem(GLOBAL_STORAGE_KEY, JSON.stringify(entries));
+    }
   } catch {
     // storage unavailable — fail silently, app still works for the session
   }
@@ -27,6 +68,15 @@ export function useEntries() {
   useEffect(() => {
     save(entries);
   }, [entries]);
+
+  // Reload entries when the session changes (login / logout / signup)
+  useEffect(() => {
+    function onSessionChange() {
+      setEntries(load());
+    }
+    window.addEventListener("signal:session-changed", onSessionChange);
+    return () => window.removeEventListener("signal:session-changed", onSessionChange);
+  }, []);
 
   const addEntry = useCallback((entry: Omit<Entry, "id" | "createdAt" | "status">) => {
     const newEntry: Entry = {
@@ -46,55 +96,9 @@ export function useEntries() {
     setEntries((prev) => prev.filter((e) => e.id !== id));
   }, []);
 
-  const seedDemoData = useCallback(() => {
-    const now = Date.now();
-    const hrs = (n: number) => new Date(now + n * 60 * 60 * 1000).toISOString();
-    const demo: Entry[] = [
-      {
-        id: crypto.randomUUID(),
-        company: "Infosys",
-        role: "Specialist Programmer",
-        source: "Company Portal",
-        type: "assessment",
-        criticalDate: hrs(4),
-        status: "pending",
-        notes: "Coding assessment — the one that almost got buried before",
-        createdAt: new Date().toISOString(),
-      },
-      {
-        id: crypto.randomUUID(),
-        company: "Kaitongo",
-        role: "React Developer",
-        source: "Naukri",
-        type: "interview",
-        criticalDate: hrs(30),
-        status: "pending",
-        createdAt: new Date().toISOString(),
-      },
-      {
-        id: crypto.randomUUID(),
-        company: "Altos Technologies",
-        role: "React + Django Developer",
-        source: "Referral",
-        type: "referral",
-        referredBy: "Senior contact",
-        criticalDate: hrs(70),
-        status: "pending",
-        createdAt: new Date().toISOString(),
-      },
-      {
-        id: crypto.randomUUID(),
-        company: "Recruit CRM",
-        role: "Customer Success Associate",
-        source: "Internshala",
-        type: "deadline",
-        criticalDate: hrs(-20),
-        status: "missed",
-        createdAt: new Date().toISOString(),
-      },
-    ];
-    setEntries(demo);
-  }, []);
+  // demo / seed function intentionally removed to keep user data exact.
+  // Previously there was a `seedDemoData` helper here that populated example entries.
+  // To ensure users only see data they enter, we do not provide that helper anymore.
 
-  return { entries, addEntry, updateEntry, deleteEntry, seedDemoData };
+  return { entries, addEntry, updateEntry, deleteEntry };
 }

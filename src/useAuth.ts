@@ -48,6 +48,11 @@ export function useAuth() {
       const { password: _pw, ...publicUser } = user;
       localStorage.setItem(SESSION_KEY, JSON.stringify(publicUser));
       setCurrentUser(publicUser);
+      try {
+        window.dispatchEvent(new Event("signal:session-changed"));
+      } catch {
+        /* ignore */
+      }
       return { ok: true as const };
     },
     [],
@@ -63,12 +68,22 @@ export function useAuth() {
     const { password: _pw, ...publicUser } = user;
     localStorage.setItem(SESSION_KEY, JSON.stringify(publicUser));
     setCurrentUser(publicUser);
+    try {
+      window.dispatchEvent(new Event("signal:session-changed"));
+    } catch {
+      /* ignore */
+    }
     return { ok: true as const };
   }, []);
 
   const logout = useCallback(() => {
     localStorage.removeItem(SESSION_KEY);
     setCurrentUser(null);
+    try {
+      window.dispatchEvent(new Event("signal:session-changed"));
+    } catch {
+      /* ignore */
+    }
   }, []);
 
   return { currentUser, signup, login, logout };
