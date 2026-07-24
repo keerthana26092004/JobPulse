@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import type { Entry, EntryType } from "../types";
 import { ENTRY_TYPE_LABELS } from "../types";
 
@@ -8,7 +8,7 @@ export function AddEntryForm({
   allowedTypes,
 }: {
   onAdd: (entry: Omit<Entry, "id" | "createdAt" | "status">) => void;
-  onClose: () => void;
+  onClose?: () => void;
   allowedTypes: EntryType[];
 }) {
   const [company, setCompany] = useState("");
@@ -18,8 +18,19 @@ export function AddEntryForm({
   const [date, setDate] = useState("");
   const [referredBy, setReferredBy] = useState("");
   const [notes, setNotes] = useState("");
+  const [showToast, setShowToast] = useState(false);
 
-  function handleSubmit(e: React.FormEvent) {
+  function resetFields() {
+    setCompany("");
+    setRole("");
+    setSource("");
+    setType(allowedTypes[0] ?? "assessment");
+    setDate("");
+    setReferredBy("");
+    setNotes("");
+  }
+
+  function handleSubmit(e: FormEvent) {
     e.preventDefault();
     if (!company.trim() || !date) return;
     onAdd({
@@ -31,31 +42,55 @@ export function AddEntryForm({
       referredBy: referredBy.trim() || undefined,
       notes: notes.trim() || undefined,
     });
-    onClose();
+
+    resetFields();
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 2500);
+
+    if (onClose) onClose();
   }
 
+  const isModal = typeof onClose === "function";
+  const wrapperClass = isModal
+    ? "fixed inset-0 z-20 flex items-start justify-center overflow-y-auto bg-black/60 px-4 py-10 backdrop-blur-sm"
+    : "w-full rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface-raised)] p-6 shadow-lg";
+  const cardClass = isModal
+    ? "w-full max-w-lg rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-raised)] p-6 shadow-2xl"
+    : "w-full";
+
   return (
-    <div className="fixed inset-0 z-20 flex items-start justify-center overflow-y-auto bg-black/60 px-4 py-10 backdrop-blur-sm">
-      <div className="w-full max-w-lg rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-raised)] p-6 shadow-2xl">
-        <div className="mb-5 flex items-center justify-between">
-          <h3 className="font-[var(--font-display)] text-lg font-semibold text-[var(--color-text)]">
-            Catch something before it's buried
-          </h3>
-          <button
-            onClick={onClose}
-            className="text-[var(--color-text-dim)] hover:text-[var(--color-text)]"
-            aria-label="Close"
-          >
-            ✕
-          </button>
+    <div className={wrapperClass}>
+      <div className={cardClass}>
+        <div className="mb-5 flex items-center justify-between gap-4">
+          <div>
+            <h3 className="font-[var(--font-display)] text-2xl font-semibold text-[var(--color-text)]">
+              Track the next application
+            </h3>
+          </div>
+          {isModal && (
+            <button
+              onClick={onClose}
+              className="text-[var(--color-text-dim)] hover:text-[var(--color-text)]"
+              aria-label="Close"
+            >
+              ✕
+            </button>
+          )}
         </div>
+
+        {showToast && (
+          <div className="mb-4 flex items-center gap-2 rounded-lg border border-[var(--color-success)]/40 bg-[var(--color-success-soft)] px-3 py-2 text-sm font-medium text-[var(--color-success)]">
+            <span>✓</span> Added successfully
+          </div>
+        )}
+
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div className="grid grid-cols-2 gap-3">
             <Field label="Company">
               <input
                 value={company}
                 onChange={(e) => setCompany(e.target.value)}
-                placeholder="Infosys"
+                placeholder="Enter Company Name"
                 required
                 className={inputClass}
               />
@@ -64,7 +99,7 @@ export function AddEntryForm({
               <input
                 value={role}
                 onChange={(e) => setRole(e.target.value)}
-                placeholder="SE Trainee"
+                placeholder="Enter Role"
                 className={inputClass}
               />
             </Field>
@@ -120,7 +155,7 @@ export function AddEntryForm({
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               rows={2}
-              placeholder="Anything you'd forget otherwise"
+              placeholder="Optional"
               className={inputClass}
             />
           </Field>
@@ -129,7 +164,7 @@ export function AddEntryForm({
             type="submit"
             className="mt-1 rounded-lg bg-[var(--color-signal)] px-4 py-2.5 font-medium text-white transition hover:brightness-110"
           >
-            Add to Signal
+            Add
           </button>
         </form>
       </div>

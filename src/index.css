@@ -1,3 +1,4 @@
+
 @import "tailwindcss";
 
 @theme {
@@ -5,30 +6,37 @@
   --font-body: "Inter", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 
-  /* cool paper background, ink text — deliberately not the cream+terracotta default */
-  --color-bg: #f4f5f8;
+  /* refreshed, modern palette */
+  --color-bg: #eef2ff; /* soft lavender */
   --color-surface: #ffffff;
   --color-surface-raised: #ffffff;
-  --color-border: #dfe2e8;
-  --color-signal: #d68a1f;
-  --color-signal-soft: #fbeed9;
-  --color-signal-dim: #b9760f;
-  --color-noise: #9aa2b1;
+  --color-border: #e6e9f8;
+  --color-signal: #7c3aed; /* vibrant violet */
+  --color-signal-soft: #f3e8ff;
+  --color-signal-dim: #5b21b6;
+  --color-noise: #94a3b8;
   --color-noise-dim: #c4c9d2;
-  --color-text: #1b2430;
-  --color-text-dim: #67707f;
-  --color-success: #1f9d63;
-  --color-success-soft: #e2f6ec;
-  --color-danger: #d6483f;
-  --color-danger-soft: #fbe8e6;
+  --color-text: #071133;
+  --color-text-dim: #56627a;
+  --color-success: #059669;
+  --color-success-soft: #e6fffa;
+  --color-danger: #e11d48;
+  --color-danger-soft: #fff1f2;
 }
 
 @layer base {
   body {
-    background-color: var(--color-bg);
+    background: radial-gradient(1200px 600px at 10% 10%, rgba(124,58,237,0.06), transparent 20%),
+                radial-gradient(1000px 500px at 90% 90%, rgba(5,150,105,0.03), transparent 20%),
+                var(--color-bg);
     color: var(--color-text);
     font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
+
+  /* make base type slightly larger for readability */
+  html { font-size: 16px; }
 }
 
 @keyframes pulse-line {
@@ -38,4 +46,9 @@
 
 .pulse-dot {
   animation: pulse-line 2s ease-in-out infinite;
+}
+
+/* small utility for auth pages */
+.auth-illustration {
+  background: linear-gradient(180deg, rgba(124,58,237,0.06), rgba(124,58,237,0.02));
 }
