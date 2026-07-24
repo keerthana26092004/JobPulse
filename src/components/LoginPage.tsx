@@ -22,9 +22,9 @@ export function LoginPage({
       <h1 className="font-[var(--font-display)] text-2xl font-semibold text-[var(--color-text)]">
         Welcome back
       </h1>
-      <p className="mt-1 text-sm text-[var(--color-text-dim)]">
+      {/* <p className="mt-1 text-sm text-[var(--color-text-dim)]">
         Pick up where the signal left off.
-      </p>
+      </p> */}
 
       <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
         <Field label="Email">
@@ -34,7 +34,7 @@ export function LoginPage({
             onChange={(e) => setEmail(e.target.value)}
             required
             className={inputClass}
-            placeholder="you@example.com"
+            placeholder="email"
           />
         </Field>
         <Field label="Password">
@@ -77,11 +77,11 @@ export function AuthShell({ children }: { children: React.ReactNode }) {
       <div className="w-full max-w-sm">
         <div className="mb-6 flex items-center gap-2.5">
           <div className="relative flex h-7 w-7 items-center justify-center">
-            <span className="pulse-dot absolute h-2 w-2 rounded-full bg-[var(--color-signal)]" />
-            <span className="h-2 w-2 rounded-full bg-[var(--color-signal)] opacity-30" />
+            {/* <span className="pulse-dot absolute h-2 w-2 rounded-full bg-[var(--color-signal)]" />
+            <span className="h-2 w-2 rounded-full bg-[var(--color-signal)] opacity-30" /> */}
           </div>
           <span className="font-[var(--font-display)] text-lg font-semibold text-[var(--color-text)]">
-            Signal
+            {/* Signal */}
           </span>
         </div>
         <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-7 shadow-sm">

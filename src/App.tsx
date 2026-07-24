@@ -50,9 +50,9 @@ function App() {
 
         <div className="flex w-full flex-col gap-8">
           <div className="flex items-center justify-between gap-4">
-            <p className="max-w-md text-sm text-[var(--color-text-dim)]">
+            {/* <p className="max-w-md text-sm text-[var(--color-text-dim)]">
               Every portal notifies you about everything. This only shows what you told it matters.
-            </p>
+            </p> */}
             <div className="flex shrink-0 gap-2">
               {entries.length === 0 && (
                 <button
@@ -62,12 +62,12 @@ function App() {
                   Load example
                 </button>
               )}
-              <button
+              {/* <button
                 onClick={() => setShowForm(true)}
                 className="rounded-lg bg-[var(--color-signal)] px-4 py-2 text-sm font-medium text-white transition hover:brightness-95"
               >
                 + Add something
-              </button>
+              </button> */}
             </div>
           </div>
 
@@ -84,7 +84,7 @@ function App() {
       </main>
 
       <footer className="mx-auto max-w-5xl px-6 pb-10 text-center text-xs text-[var(--color-text-dim)] sm:px-10">
-        Built for freshers drowning in portal notifications — one signal, no noise.
+        {/* Built for freshers drowning in portal notifications — one signal, no noise. */}
       </footer>
 
       {showForm && (

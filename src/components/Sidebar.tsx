@@ -4,14 +4,14 @@ export type ViewKey = "overview" | "dashboard" | "health" | "all";
 
 export function Sidebar({ selected, onSelect }: { selected: ViewKey; onSelect: (v: ViewKey) => void }) {
   const items: { key: ViewKey; label: string; hint?: string }[] = [
-    { key: "overview", label: "Dashboard", hint: "Overview of everything" },
-    { key: "dashboard", label: "Don't miss this", hint: "Urgent items" },
-    { key: "health", label: "Signal Health", hint: "Catch-rate & summary" },
-    { key: "all", label: "Everything", hint: "All tracked items" },
+    { key: "overview", label: "Dashboard", hint: "Overview" },
+    { key: "dashboard", label: "Priority Alerts", hint: "Action Needed" },
+    { key: "health", label: "Performance", hint: "Catch Rate & Summary" },
+    { key: "all", label: "All Applications", hint: "All tracked items" },
   ];
 
   return (
-    <aside className="hidden w-56 shrink-0 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4 md:block">
+    <aside className="hidden w-56 shrink-0 self-start rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4 md:block">
       <nav className="flex flex-col gap-2">
         {items.map((it) => (
           <button

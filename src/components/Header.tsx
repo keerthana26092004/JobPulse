@@ -20,7 +20,7 @@ export function Header({
               Signal
             </h1>
             <p className="text-xs text-[var(--color-text-dim)]">
-              hey {username} — here's what's cutting through
+              Hey {username}👋🏻 — Welcome 
             </p>
           </div>
         </div>

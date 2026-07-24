@@ -2,6 +2,7 @@ import type { Entry } from "../types";
 import { TRACKABLE_CATEGORIES } from "../types";
 import BarChart from "./BarChart";
 
+
 export function OverviewSummary({ entries }: { entries: Entry[] }) {
   const pending = entries.filter((e) => e.status === "pending").length;
   const done = entries.filter((e) => e.status === "done").length;
@@ -15,7 +16,12 @@ export function OverviewSummary({ entries }: { entries: Entry[] }) {
 
   return (
     <div className="flex flex-col gap-6">
+       <div className="flex items-center justify-between gap-4">
+            <p className="max-w-md text-sm text-[var(--color-text-dim)]">
+A snapshot of your job search — active applications, upcoming priorities, and your overall progress at a glance            </p> 
+        </div>
       <div className="grid grid-cols-3 gap-3">
+       
         <div className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] p-4">
           <div className="text-xs text-[var(--color-text-dim)]">Pending</div>
           <div className="mt-1 font-[var(--font-display)] text-2xl font-semibold text-[var(--color-signal)]">

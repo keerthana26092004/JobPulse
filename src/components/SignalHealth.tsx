@@ -12,8 +12,15 @@ export function SignalHealth({ entries }: { entries: Entry[] }) {
   const progress = rate === null ? 0 : (rate / 100) * circumference;
 
   return (
-    <section className="flex items-center gap-5 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
+    
+    <section className="flex flex-col gap-4">
+            <p className="max-w-md text-sm text-[var(--color-text-dim)]">
+                  A complete, filterable record of every application and update you're tracking
+           </p>
+    <div className="flex items-center gap-5 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
+      
       <div className="relative shrink-0">
+        
         <svg width="88" height="88" viewBox="0 0 88 88" className="-rotate-90">
           <circle
             cx="44"
@@ -53,6 +60,7 @@ export function SignalHealth({ entries }: { entries: Entry[] }) {
             : `You've caught ${caught} of ${total} tracked deadlines on time` +
               (missed > 0 ? ` — ${missed} slipped through.` : ".")}
         </p>
+      </div>
       </div>
     </section>
   );

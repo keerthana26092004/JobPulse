@@ -42,11 +42,11 @@ export function SignupPage({
   return (
     <AuthShell>
       <h1 className="font-[var(--font-display)] text-2xl font-semibold text-[var(--color-text)]">
-        Set up Signal
+        Sign Up
       </h1>
-      <p className="mt-1 text-sm text-[var(--color-text-dim)]">
+      {/* <p className="mt-1 text-sm text-[var(--color-text-dim)]">
         Tell it what's worth interrupting you for.
-      </p>
+      </p> */}
 
       <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
         <Field label="Username">
@@ -55,7 +55,7 @@ export function SignupPage({
             onChange={(e) => setUsername(e.target.value)}
             required
             className={inputClass}
-            placeholder="How Signal should greet you"
+            placeholder="Your name"
           />
         </Field>
         <Field label="Email">
@@ -65,7 +65,7 @@ export function SignupPage({
             onChange={(e) => setEmail(e.target.value)}
             required
             className={inputClass}
-            placeholder="you@example.com"
+            placeholder="email"
           />
         </Field>
         <Field label="Password">
@@ -74,13 +74,13 @@ export function SignupPage({
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            minLength={4}
+            minLength={8}
             className={inputClass}
-            placeholder="At least 4 characters"
+            placeholder="At least 8 characters"
           />
         </Field>
 
-        <div>
+        {/* <div>
           <p className="text-sm font-medium text-[var(--color-text-dim)]">What do you want to track?</p>
           <div className="mt-2 grid gap-2">
             {TRACKABLE_CATEGORIES.map((c) => (
@@ -98,7 +98,7 @@ export function SignupPage({
               </label>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {error && <p className="text-sm text-[var(--color-danger)]">{error}</p>}
 
