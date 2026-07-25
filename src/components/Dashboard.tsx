@@ -42,7 +42,7 @@ export function Dashboard({
           Clear for now.
         </p>
         <p className="mt-1 text-sm text-[var(--color-text-dim)]">
-          Nothing urgent in the next 3 days. Add something the moment it lands in your inbox — that's the habit that matters.
+          Nothing urgent in the next 3 days. Add something the moment it lands in your inbox.
         </p>
       </section>
     );
