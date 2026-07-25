@@ -1,46 +1,41 @@
-# Signal
+# Job Pulse
 
-**A single, quiet place for the job-search moments you can't afford to miss.**
+A focused tracker that shows me only what's urgent in my job search among multiple emails.
 
-## The problem
+## Why I built this
 
-When you're hunting for a job as a fresher, you don't apply through one channel — you're on Naukri, Internshala, Freshersworld, referrals, and direct company portals all at once. Every one of them pushes notifications: new job recommendations, generic updates, "companies hiring now."
+While applying for jobs, I'm logged into multiple portals at once — Naukri, Internshala, company sites, referrals. Every one of them pushes notifications constantly, mostly generic job recommendations. Somewhere in that noise, I once missed my own shortlisted Infosys coding assessment — the actual invite got buried under dozens of unrelated updates.
 
-Somewhere in that flood, the genuinely critical ones — a shortlisted coding assessment, an interview invite, a deadline — arrive looking exactly like the noise around them. It's easy to miss them entirely. That's not hypothetical: it's how a real shortlisted coding assessment got missed.
-
-## The idea
-
-Signal isn't another application tracker. It doesn't try to read your inbox or unify every portal (that's a fragile, over-scoped fix for a 2-day build, and arguably not even the real problem). Instead, it asks for one small habit: **the moment something time-sensitive lands, spend 15 seconds logging it here.**
-
-The app then does the one thing your inbox can't: shows you *only* what's urgent, sorted by how soon it matters, with everything else — pending items with breathing room, done, missed — kept out of the way until you ask for it.
+That's the real problem this app solves: not "track my applications" in general, but specifically **stop important, time-sensitive things from getting lost in notification noise.**
 
 ## What it does
 
-- **Signup** — email, password, username, plus a choice of which categories you actually want Signal to track (assessments, interviews, deadlines, referral follow-ups, general follow-ups). This personalizes the app to what matters to *you*, rather than showing every possible category by default.
-- **Login** — email + password.
-- **Signal Health** — a ring visual showing your on-time catch rate (resolved-on-time vs missed) as your history builds up, so the app gives ongoing feedback instead of being a static list.
-- **Dashboard ("Don't miss this")** — pending items due today or within 3 days, sorted by urgency, with overdue items flagged distinctly.
-- **Add an entry** — company, role, source/portal, type (limited to the categories you picked at signup), and the date-time that matters.
-- **Full list** — every entry you've logged, filterable by source and status, so you also always know which portal an application came through.
-- **Mark done / missed** — closes the loop without deleting history, and feeds the Signal Health ring.
+- **Sign up** - This personalizes what you see from day one instead of showing everything by default.
+- **Add Job** — Add a job with company, role, source/portal, type, and the exact date-time it's due.
+- **Priority Alerts** — a filtered view showing only what's urgent (due today or within the next 3 days), sorted by how soon it's due, so nothing critical gets buried.
+- **Performance (Signal Health)** — a running catch-rate score based on what I've resolved on time vs. missed.
+- **All Applications** — the full record of everything I'm tracking, filterable by source and status.
 
-All data — including login credentials — is stored in your browser's `localStorage`. There is no backend and no real security here; this is a deliberate MVP scoping decision, not an oversight. It lets the whole flow (signup → personalize → track → resolve) work end-to-end within a 2-day build, while being upfront that a production version would need a real auth backend.
+## Why manual entry, not auto email-reading
+
+I deliberately chose not to try auto-parsing my inbox for this build. Reading emails automatically to detect deadlines needs OAuth setup, API approval, and reliable text parsing — realistically a multi-week project, not something safe to attempt in a couple of days. Instead, the app leans on one small habit: the moment something time-sensitive lands, I take 15 seconds to log it here myself. It's a more honest trade-off for the timeframe, and it's listed below as something I'd build toward with more time.
 
 ## Tech stack
 
-- React 19 + TypeScript
-- Tailwind CSS v4
+- React + TypeScript
+- Tailwind CSS
 - Vite
-- No backend — `localStorage` persistence
+- No backend — data (including login) is stored in the browser's `localStorage`. This was a deliberate MVP scoping decision so the whole flow works end-to-end without needing real infrastructure, not an oversight — a production version would need proper backend auth.
 
-## Running locally
+## Running it locally
 
 ```bash
+git clone "https://github.com/keerthana26092004/JobPulse.git"
 npm install
 npm run dev
 ```
 
-Then open the printed local URL (typically `http://localhost:5173`).
+Then open the local URL in search engine (usually `http://localhost:5173`).
 
 To build for production:
 
@@ -49,18 +44,17 @@ npm run build
 npm run preview
 ```
 
-## Design notes
+## Live site
 
-The visual language is built around the app's own thesis: important signals get lost in noise. A calm, light paper background keeps the palette quiet so the signal-amber accent used for urgent items and the Signal Health ring actually reads as meaningful — it's a functional choice tied to the problem, not decoration.
+https://jobpulsefreshers.netlify.app/
 
-## What I'd add with another week
+## What I'd improve with more time
 
-- A real backend with proper auth (hashed passwords, sessions) instead of the client-only mock used here.
-- Parsing pasted email text to auto-suggest an entry (date, company, type) instead of manual entry, while keeping a confirm step so nothing gets added silently.
-- Browser/desktop notifications for items becoming urgent, so you don't have to remember to open the app.
-- Optional Gmail integration to flag likely-critical emails automatically — explored but out of scope given the API/auth setup time it would need.
-- Shareable/exportable view for mentors or placement cells to sanity-check your pipeline.
+- A real backend with proper authentication instead of using only local storage.
+- Exploring email API integration to auto-fetch application-related details instead of manual entry — the natural next step once I had time to handle the OAuth/parsing complexity properly.
+- Browser notifications for items becoming urgent, so I don't have to remember to check the app.
+- A way to export tracked deadlines to a calendar.
 
 ## AI collaboration
 
-Built in collaboration with Claude — used for problem framing, the signal/noise design direction, component architecture, and code implementation. Product framing, the specific problem choice (validated against a real missed-assessment incident), and final design decisions were reviewed and directed throughout rather than accepted wholesale.
+I used Claude ai — for shaping the problem statement, working through design and architecture decisions (like why manual entry over email parsing), and writing/iterating on the actual code. I directed the specific problem choice (based on my own missed-assessment experience), the personalization angle at signup, and the Signal Health scoring idea, and reviewed/adjusted the implementation rather than accepting it as-is.
